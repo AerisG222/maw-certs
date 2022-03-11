@@ -6,6 +6,8 @@ RUN apk --no-cache add \
 
 WORKDIR /src
 COPY gen_certs.sh .
-COPY dev/ .
+COPY dev ./dev/
+COPY local ./local/
+COPY prod ./prod/
 
-CMD [ "/src/dev_gen_certs.sh" ]
+ENTRYPOINT [ "/src/gen_certs.sh" ]
