@@ -134,12 +134,15 @@ gen_cert() {
             rm "${activedhparam}"
         fi
 
-        ln -s "${certkey}" "${activekey}"
-        ln -s "${certkeypwd}" "${activekeypwd}"
-        ln -s "${certcrt}" "${activecrt}"
-        ln -s "${certpfx}" "${activepfx}"
-        ln -s "${certpfxpwd}" "${activepfxpwd}"
-        ln -s "${dhparam}" "${activedhparam}"
+        # we used to use symlinks here, but now we copy the file so that this works
+        # regardless of mount points (so this image can work with podman volumes and local)
+        # filesystems
+        cp -f "${certkey}" "${activekey}"
+        cp -f "${certkeypwd}" "${activekeypwd}"
+        cp -f "${certcrt}" "${activecrt}"
+        cp -f "${certpfx}" "${activepfx}"
+        cp -f "${certpfxpwd}" "${activepfxpwd}"
+        cp -f "${dhparam}" "${activedhparam}"
     fi
 }
 
@@ -198,10 +201,10 @@ prepare_root_ca() {
             rm "${CA_CRT_PWD}"
         fi
 
-        ln -s "${CA_KEY_NEW}" "${CA_KEY}"
-        ln -s "${CA_KEY_PWD_NEW}" "${CA_KEY_PWD}"
-        ln -s "${CA_CRT_NEW}" "${CA_CRT}"
-        ln -s "${CA_CRT_PWD_NEW}" "${CA_CRT_PWD}"
+        cp -f "${CA_KEY_NEW}" "${CA_KEY}"
+        cp -f "${CA_KEY_PWD_NEW}" "${CA_KEY_PWD}"
+        cp -f "${CA_CRT_NEW}" "${CA_CRT}"
+        cp -f "${CA_CRT_PWD_NEW}" "${CA_CRT_PWD}"
     fi
 }
 
