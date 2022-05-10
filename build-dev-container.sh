@@ -1,3 +1,3 @@
 #!/bin/bash
 
-buildah bud -f Containerfile -t maw-certs-dev
+buildah bud -f Containerfile -t maw-certs-test
