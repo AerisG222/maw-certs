@@ -14,15 +14,18 @@ running the site entierly in containers using managed volumes.
 
 This will store the generated certificates on the local filesystem - `/home/mmorano/_maw/xxx` in this example.
 
-`podman run -it --rm --volume /home/mmorano/_maw/xxx:/maw-certs:rw,z maw-certs-dev local local`
+`podman run -it --rm --volume /home/mmorano/_maw/xxx:/maw-certs:rw,z maw-certs-test local local`
 
 Note: once this completes, you will need to manually fix/replace the symlinks for the active certs!
+
+Note 2: if certs were created, make sure to update the pfx passwords in .env files that the site relies
+on, and be sure to source .bash_profile to set the new values in the current env (or logout and log back in).
 
 ## managed volume
 
 This will store the certificates in a managed volume named `volname`.
 
-`podman run -it --rm --volume volname:/maw-certs:rw,z maw-certs-dev dev dev`
+`podman run -it --rm --volume volname:/maw-certs:rw,z maw-certs dev dev`
 
 Note: for the symlinks to work as expected, make sure consuming volumes mount this in the `/maw-certs`
 directory in the container.
